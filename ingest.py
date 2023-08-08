@@ -4,13 +4,12 @@ from typing import Union
 import requests
 
 urls = {
-    "tmax": r"https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Tmax/ranked/UK.txt",
-    "tmin": r"https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Tmin/ranked/UK.txt",
-    "tmean": r"https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Tmean/ranked/UK.txt",
-    "sunshine": r"https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Sunshine/ranked/UK.txt",
-    "rainfall": r"https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Rainfall/ranked/UK.txt",
+    "tmax": r"https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Tmax/date/UK.txt",
+    "tmin": r"https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Tmin/date/UK.txt",
+    "tmean": r"https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Tmean/date/UK.txt",
+    "sunshine": r"https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Sunshine/date/UK.txt",
+    "rainfall": r"https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Rainfall/date/UK.txt",
 }
-
 
 def grab_url_text_data(url: str, save_text_dir: Union[Path, str]) -> None:
     """
