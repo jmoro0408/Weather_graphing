@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "weather-graphing"
+version = "0.1.0"
+description = ""
+authors = ["James Moro <james.moro.11@gmail.com>"]
+readme = "README.md"
+packages = [{include = "weather_graphing"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.0.3"
+requests = "^2.31.0"
+seaborn = "^0.12.2"
+streamlit = "^1.25.0"
+jupyter = "^1.0.0"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.4.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
