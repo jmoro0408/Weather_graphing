@@ -31,8 +31,10 @@ def grab_url_text_data(url: str, save_text_dir: Union[Path, str]) -> None:
     print(f"Success! URL {url} data successfully written to {save_text_dir}")
     return None
 
-
-if __name__ == "__main__":
+def main():
     for key, url in urls.items():
         SAVE_DIR = Path(Path.cwd(), "data", f"{key}.txt")
         grab_url_text_data(url, SAVE_DIR)
+
+if __name__ == "__main__":
+    main()
