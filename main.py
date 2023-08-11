@@ -1,0 +1,3 @@
+import ingest
+
+ingest.main()
