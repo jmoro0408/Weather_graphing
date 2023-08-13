@@ -204,7 +204,7 @@ for key in list(dfs_2023_dict.keys()):
     )
     fig = go.Figure(data=lines.data + scatter.data)
     fig.update_layout(showlegend=False, xaxis_title="", yaxis_title=unit, title=key)
-    fig_data[key] = fig.data
+    fig_data[key] = fig
 
 
 st.title("UK Monthly Weather Data")
