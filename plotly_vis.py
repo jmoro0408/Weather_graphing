@@ -1,3 +1,4 @@
+import io
 import pickle
 from pathlib import Path
 
@@ -10,6 +11,34 @@ from datetime import datetime
 
 import plotly.express as px
 import plotly.graph_objects as go
+import requests
+
+urls = {
+    "tmax": r"https://weather-bucket-jmoro0408.s3.eu-north-1.amazonaws.com/tmax.txt",
+    "tmin": r"https://weather-bucket-jmoro0408.s3.eu-north-1.amazonaws.com/tmin.txt",
+    "tmean": r"https://weather-bucket-jmoro0408.s3.eu-north-1.amazonaws.com/tmean.txt",
+    "sunshine": r"https://weather-bucket-jmoro0408.s3.eu-north-1.amazonaws.com/sunshine.txt",
+    "rainfall": r"https://weather-bucket-jmoro0408.s3.eu-north-1.amazonaws.com/rainfall.txt",
+}
+
+
+def grab_url_text_data(
+    input_url: str,
+) -> str:
+    """
+
+    Args:
+        url (str): url to grab text data from, should direct to a .txt html
+        e.g "http://www.gutenberg.org/files/11/11-0.txt"
+        save_text_dir (Union[Path, str]): directory to save text data in .
+
+    Returns:
+    """
+    r = requests.get(input_url)
+    file_like_obj = io.StringIO(r.text)
+    lines = file_like_obj.readlines()
+    return lines
+
 
 current_month = datetime.today().month
 current_year = datetime.today().year
@@ -33,14 +62,14 @@ months_to_overwrite = []
 for i in range(current_month, 13):
     months_to_overwrite.append(month_mapping[i])
 
-LOAD_DIR = Path(Path.cwd(), "data")
-fnames = ["rainfall.txt", "sunshine.txt", "tmax.txt", "tmean.txt", "tmin.txt"]
+
+fnames = ["tmas", "tmin", "tmean", "sunshine", "rainfall"]
 titles = ["Rainfall", "Sunshine", "Max Temp", "Mean Temp", "Min Temp"]
 raw_data_dict = {}
-for fname in fnames:
-    with open(Path(LOAD_DIR, fname)) as f:
-        data = f.readlines()[5:]
-    raw_data_dict[fname[:-4]] = data
+for fname, url in zip(fnames, urls.values()):
+    data = grab_url_text_data(url)[5:]
+    raw_data_dict[fname] = data
+
 
 dfs = []
 for name, data in raw_data_dict.items():
