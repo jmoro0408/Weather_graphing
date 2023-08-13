@@ -62,8 +62,8 @@ for i in range(current_month, 13):
     months_to_overwrite.append(month_mapping[i])
 
 
-fnames = ["tmas", "tmin", "tmean", "sunshine", "rainfall"]
-titles = ["Rainfall", "Sunshine", "Max Temp", "Mean Temp", "Min Temp"]
+fnames = ["tmax", "tmin", "tmean", "sunshine", "rainfall"]
+titles = ["Max Temp", "Min Temp", "Mean Temp", "Sunshine", "Rainfall"]
 raw_data_dict = {}
 for fname, url in zip(fnames, urls.values()):
     data = grab_url_text_data(url)[5:]
@@ -205,6 +205,7 @@ for key in list(dfs_2023_dict.keys()):
     fig = go.Figure(data=lines.data + scatter.data)
     fig.update_layout(showlegend=False, xaxis_title="", yaxis_title=unit, title=key)
     fig_data[key] = fig
+    # fig.show()
 
 
 st.title("UK Monthly Weather Data")
