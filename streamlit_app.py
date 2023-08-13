@@ -1,3 +1,4 @@
+#TODO This whole file needs refactored
 import io
 
 import matplotlib.pyplot as plt
@@ -209,6 +210,15 @@ for key in list(dfs_2023_dict.keys()):
 
 
 st.title("UK Monthly Weather Data")
+st.header("About")
+st.markdown(r"""Some charts of UK weather data. The average max temperature, 
+            min temperature, mean temperature, sunshine hours and rainfall mm 
+            for the UK is provided. The mean, 50%, and 90% deciles are plotted with 
+            values for the current year provided as markers. 
+            Inspiration for this is taken from Nigel Marriot's blog and the original
+            data is provided by the met office.\
+            The charts will update monthly as new data is provided.\
+            You can read more about how I made this on my website. """)
 st.plotly_chart(fig_data["Rainfall"])
 st.plotly_chart(fig_data["Sunshine"])
 st.plotly_chart(fig_data["Max Temp"])
