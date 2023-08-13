@@ -3,7 +3,7 @@ from pathlib import Path
 
 import streamlit as st
 
-st.title('UK Monthly Weather Data')
+st.title("UK Monthly Weather Data")
 
 LOAD_DIR = Path(Path.cwd(), "visuals", "chart_data")
 TMAX_DIR = Path(LOAD_DIR, "Max Temp.pkl")
@@ -30,5 +30,3 @@ st.plotly_chart(sunshine)
 st.plotly_chart(tmax)
 st.plotly_chart(tmin)
 st.plotly_chart(tmean)
-
-
