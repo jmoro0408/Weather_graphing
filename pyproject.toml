@@ -14,6 +14,8 @@ seaborn = "^0.12.2"
 streamlit = "^1.25.0"
 jupyter = "^1.0.0"
 plotly = "^5.15.0"
+pigar = "^2.1.1"
+st-files-connection = {git = "https://github.com/streamlit/files-connection"}
 
 
 [tool.poetry.group.dev.dependencies]
