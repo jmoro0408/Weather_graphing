@@ -213,8 +213,9 @@ st.title("UK Monthly Weather Data")
 st.header("About")
 st.markdown(r"""Some charts of UK weather data. The average max temperature, 
             min temperature, mean temperature, sunshine hours and rainfall mm 
-            for the UK is provided. The mean, 50%, and 90% deciles are plotted with 
-            values for the current year provided as markers. 
+            for the UK is provided. The mean and 90% deciles are plotted, along with 
+            min/mas values. Values for the current year provided as markers, with marker
+            shape aligned to which decile the value lies within.  
             Inspiration for this is taken from Nigel Marriot's blog and the original
             data is provided by the met office.\
             The charts will update monthly as new data is provided.\
