@@ -208,8 +208,8 @@ for key in list(dfs_2023_dict.keys()):
 
 
 st.title("UK Monthly Weather Data")
-st.plotly_chart(fig_data["rainfall"])
-st.plotly_chart(fig_data["sunshine"])
-st.plotly_chart(fig_data["tmax"])
-st.plotly_chart(fig_data["tmin"])
-st.plotly_chart(fig_data["tmean"])
+st.plotly_chart(fig_data["Rainfall"])
+st.plotly_chart(fig_data["Sunshine"])
+st.plotly_chart(fig_data["Max Temp"])
+st.plotly_chart(fig_data["Mean Temp"])
+st.plotly_chart(fig_data["Min Temp"])
