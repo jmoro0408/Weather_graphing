@@ -1,4 +1,4 @@
-#TODO This whole file needs refactored
+# TODO This works but it is a direct translation from the notebook. Needs to be completely refactored.
 import io
 
 import matplotlib.pyplot as plt
@@ -57,29 +57,39 @@ month_mapping = {
     12: "dec",
 }
 months = list(month_mapping.values())
-current_month_name = month_mapping[current_month]
-months_to_overwrite = []
-for i in range(current_month, 13):
-    months_to_overwrite.append(month_mapping[i])
 
+
+def define_months_to_overwrite():
+    _months_to_overwrite = []
+    for i in range(current_month, 13):
+        _months_to_overwrite.append(month_mapping[i])
+    return _months_to_overwrite
+
+
+months_to_overwrite = define_months_to_overwrite()
 
 fnames = ["tmax", "tmin", "tmean", "sunshine", "rainfall"]
 titles = ["Max Temp", "Min Temp", "Mean Temp", "Sunshine", "Rainfall"]
-raw_data_dict = {}
-for fname, url in zip(fnames, urls.values()):
-    data = grab_url_text_data(url)[5:]
-    raw_data_dict[fname] = data
 
 
-dfs = []
-for name, data in raw_data_dict.items():
-    lst_lsts = []
-    for i in range(len(data)):
-        _temp = data[i].split(" ")
-        lst_lsts.append([i for i in _temp if i])
-    df = pd.DataFrame(lst_lsts)
-    dfs.append(df)
-dfs_dict = dict(zip(titles, dfs))
+def generate_dfs_dict():
+    raw_data_dict = {}
+    for fname, url in zip(fnames, urls.values()):
+        data = grab_url_text_data(url)[5:]
+        raw_data_dict[fname] = data
+
+    dfs = []
+    for name, data in raw_data_dict.items():
+        lst_lsts = []
+        for idx, i in enumerate(data):
+            _temp = data[idx].split(" ")
+            lst_lsts.append([i for i in _temp if i])
+        df = pd.DataFrame(lst_lsts)
+        dfs.append(df)
+    return dict(zip(titles, dfs))
+
+
+dfs_dict = generate_dfs_dict()
 
 
 def clean_df(raw_df: pd.DataFrame) -> pd.DataFrame:
@@ -124,10 +134,10 @@ def generate_deciles(df: pd.DataFrame) -> pd.DataFrame:
 
 
 dfs_deciles_dict = {k: generate_deciles(v) for k, v in dfs_dict.items()}
-dfs_2023_dict = {}
+current_year_dict = {}
 for k, v in dfs_dict.items():
-    df_2023 = v[v["year"] == 2023].drop("year", axis=1)
-    dfs_2023_dict[k] = df_2023
+    df_current_year = v[v["year"] == current_year].drop("year", axis=1)
+    current_year_dict[k] = df_current_year
 
 
 def point_style(val, month, deciles_df):
@@ -155,11 +165,11 @@ long_df["type"] = pd_keys
 long_df["month"] = month_keys
 long_df = long_df.melt(id_vars=["type", "month"])
 long_df = long_df.rename(columns={"variable": "decile"})
-dfs_2023_dict = {k: v.T for k, v in dfs_2023_dict.items()}
-dfs_2023_dict = {
-    k: v.rename(columns={v.columns[0]: "value"}) for k, v in dfs_2023_dict.items()
+current_year_dict = {k: v.T for k, v in current_year_dict.items()}
+current_year_dict = {
+    k: v.rename(columns={v.columns[0]: "value"}) for k, v in current_year_dict.items()
 }
-for key, df in dfs_2023_dict.items():
+for key, df in current_year_dict.items():
     deciles_df = dfs_deciles_dict[key]
     df["month"] = df.index
     df["marker"] = df.apply(
@@ -175,9 +185,9 @@ units_map = {
 
 fig_data = {}
 
-for key in list(dfs_2023_dict.keys()):
+for key in list(current_year_dict.keys()):
     unit = units_map[key]
-    df_2023 = dfs_2023_dict[key]
+    df_current_year = current_year_dict[key]
     df = long_df[long_df["type"] == key]
     lines = px.line(
         df,
@@ -197,7 +207,11 @@ for key in list(dfs_2023_dict.keys()):
         line_shape="spline",  # or 'linear')
     )
     scatter = px.scatter(
-        df_2023, x="month", y="value", symbol="marker", hover_data=["month", "value"]
+        df_current_year,
+        x="month",
+        y="value",
+        symbol="marker",
+        hover_data=["month", "value"],
     )
     scatter.update_traces(
         marker=dict(size=10, line=dict(width=2, color="DarkSlateGrey")),
@@ -211,7 +225,8 @@ for key in list(dfs_2023_dict.keys()):
 
 st.title("UK Monthly Weather Data")
 st.header("About")
-st.markdown(r"""Some charts of UK weather data. The average max temperature, 
+st.markdown(
+    r"""Some charts of UK weather data. The average max temperature, 
             min temperature, mean temperature, sunshine hours and rainfall mm 
             for the UK is provided. The mean and 90% deciles are plotted, along with 
             min/mas values. Values for the current year provided as markers, with marker
@@ -219,7 +234,8 @@ st.markdown(r"""Some charts of UK weather data. The average max temperature,
             Inspiration for this is taken from Nigel Marriot's blog and the original
             data is provided by the met office.\
             The charts will update monthly as new data is provided.\
-            You can read more about how I made this on my website. """)
+            You can read more about how I made this on my website. """
+)
 st.plotly_chart(fig_data["Rainfall"])
 st.plotly_chart(fig_data["Sunshine"])
 st.plotly_chart(fig_data["Max Temp"])
