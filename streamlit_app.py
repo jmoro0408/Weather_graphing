@@ -319,12 +319,19 @@ def main():
         r"""Some charts of UK weather data. The average max temperature, 
                 min temperature, mean temperature, sunshine hours and rainfall mm 
                 for the UK is provided. The mean and 90% deciles are plotted, along with 
-                min/mas values. Values for the current year provided as markers, with marker
+                min/max values. Values for the current year provided as markers, with marker
                 shape aligned to which decile the value lies within.  
                 Inspiration for this is taken from Nigel Marriot's blog and the original
                 data is provided by the met office.\
-                The charts will update monthly as new data is provided.\
-                You can read more about how I made this on my website. """
+                The charts will update monthly as new data is provided and you can read more about how I made this on my website. \
+                Depending on the data available, the starting dates range from \
+                1836 (rainfall) to 1910 (sunshine) and the deciles are broken down as follows:\
+                * 0th percentile (or the smallest value)\
+                * 10th percentile (or the first decile) indicating the lowest 10% of observed values\
+                * 50th percentile (or the median value) \
+                * 90th percentile (or the ninth decile) indicating the highest 10% of observed values\
+                * 100th percentile (or the largest value) 
+                """
     )
     st.plotly_chart(fig_data["Rainfall"])
     st.plotly_chart(fig_data["Sunshine"])
