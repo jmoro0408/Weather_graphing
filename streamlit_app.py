@@ -323,7 +323,7 @@ def main():
                 shape aligned to which decile the value lies within.  
                 Inspiration for this is taken from Nigel Marriot's blog and the original
                 data is provided by the met office.\
-                The charts will update monthly as new data is provided and you can read more about how I made this on my [website.](https://jmoro0408.github.io/project/weather-graphing-on-aws) \
+                The charts will update monthly as new data is provided and you can read more about how I made this on my website. \
                 Depending on the data available, the starting dates range from \
                 1836 (rainfall) to 1910 (sunshine) and the deciles are broken down as follows:\
                 * 0th percentile (or the smallest value)\
