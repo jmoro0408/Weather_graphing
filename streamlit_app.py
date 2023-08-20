@@ -1,7 +1,6 @@
 # pylint: disable=invalid-name
 import io
 from datetime import datetime
-from typing import Union
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -217,7 +216,7 @@ def create_long_df(deciles_dict: dict[pd.DataFrame], months: list) -> pd.DataFra
     return long_df
 
 
-def calculate_marker(row: pd.Series, deciles_df: pd.DataFrame) -> Union[str, np.nan]:
+def calculate_marker(row: pd.Series, deciles_df: pd.DataFrame): #Type hint break streamlit deployment
     """Calculate and return a marker style based on row values and deciles DataFrame.
 
     This function calculates a marker style for a specific row based on its 'value' and 'month'
