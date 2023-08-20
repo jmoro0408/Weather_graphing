@@ -160,7 +160,7 @@ def generate_deciles(df: pd.DataFrame, months: list[str]) -> pd.DataFrame:
     return df_deciles
 
 
-def point_style(val: float, month: str, deciles_df: pd.DataFrame) -> Union[str, np.nan]:
+def point_style(val: float, month: str, deciles_df: pd.DataFrame): # Type hints break streamlit deployment?
     """Determine the point style based on the value, month, and deciles.
 
     This function assigns a specific point style based on the given value, corresponding month,
