@@ -8,6 +8,7 @@ This was purely an exercise to practice AWS microservices.
 
 Check out the streamlit app [here](https://weathergraphing-n3afxbnpm3dp7rdkmtot8r.streamlit.app/).
 
+Read more about how this was made on my [portfolio site.](https://jmoro0408.github.io/project/weather-graphing-on-aws)
 ## Flow
 
 1. On the 1st of each month an EventBridge schedule triggers a Lambda Function. 
